@@ -1,30 +1,41 @@
-import React, { Component } from 'react';
+import React, {useEffect} from 'react'
 import { NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginInfoState, userState } from '../state/GlobalState';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { GetData, PostData } from '../server'
+export function Login() {
 
-export class Login extends Component {
-  static displayName = Login.name;
+  const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState)
+  const [user, setUser] = useRecoilState(userState)
 
-  constructor(props) {
-    super(props);
+  useEffect(() => {
     
-    this.state = { user: [], loading: true };
+  })
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
+  const submitLogin = async () => {
+    var data = await GetData('user', loginInfo);
+    setUser({data});
   }
 
-  componentDidMount() {
-    this.populateUserData();
-  }
-
-  static renderUser(user) {
-    return (
+  return (
+    <div className='mt10'>
+      <div className='text-center'>
+        <h1 id="tabelLabel">Login</h1>
+        <p>Please sign in to your account or create a new account if you have not yet registered</p>
+      </div>
       <div className='flex column'>
         <div>Username:</div>
-        <input className='mb1' value={user.username} type='text'></input>
+        <input className='mb1' autoComplete='username' onChange={event => setLoginInfo({ ...loginInfo, username: event.target.value })} type='text'></input>
         <div>Password:</div>
-        <input className='mb1' value={user.password} type='password'></input>
-        <button className='btn-primary'>Login</button>
+        <input className='mb1' autoComplete='current-password' onChange={event => setLoginInfo({ ...loginInfo, password: event.target.value })} type='password'></input>
+        <button className='btn-primary' onClick={submitLogin}>Login</button>
         <div className='navbar-nav'>
-          <div className='flex justifyevenly mt1 '>
+          <div className='flex justifyevenly mt1'>
             <NavItem>
               <NavLink tag={Link} to="/create-account">Create Account</NavLink>
             </NavItem>
@@ -34,26 +45,9 @@ export class Login extends Component {
           </div>
         </div>
       </div>
-    );
-  }
-
-  render() {
-    let contents = Login.renderUser(this.state.user);
-
-    return (
-      <div className='mt10'>
-        <div className='text-center'>
-          <h1 id="tabelLabel">Login</h1>
-          <p>Please sign in to your account or create a new account if you have not yet registered</p>
-        </div>
-        {contents}
-      </div>
-    );
-  }
-
-  async populateUserData() {
-    const response = await fetch('user');
-    const data = await response.json();
-    this.setState({ user: data, loading: false });
-  }
+      {user.forname}
+    </div>
+  );
 }
+
+

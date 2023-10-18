@@ -17,9 +17,9 @@ namespace IndividualProject.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<UserDto> Get()
+        public IEnumerable<UserDto> GetUser(string username, string password)
         {
-            var user = _ipc.Users.Where(u => u.Username == "lm683" && u.Password == "pass123").Select(u => new UserDto
+            var user = _ipc.Users.Where(u => u.Username == username && u.Password == password).Select(u => new UserDto
             {
                 Username = u.Username,
                 Password = u.Password,
