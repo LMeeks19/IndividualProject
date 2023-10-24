@@ -8,6 +8,8 @@ code {
 
 .btn-primary {
   color: #fff;
+  padding: 0.5rem;
+  font-size: large;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
@@ -91,7 +93,8 @@ code {
 }
 
 .ml1 {
-  margin-left: 1rem;;
+  margin-left: 1rem;
+  ;
 }
 
 .mr1 {
@@ -105,7 +108,8 @@ code {
 
 .mx1 {
   margin-left: 1rem;
-  margin-right: 1rem;;
+  margin-right: 1rem;
+  ;
 }
 
 .text-center {
@@ -144,3 +148,14 @@ code {
   width: 25%;
 }
 
+.error-message {
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.329);
+  padding: 0.5rem;
+  display: none;
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid black;
+}

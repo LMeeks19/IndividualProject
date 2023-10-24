@@ -4,32 +4,47 @@ using Microsoft.AspNetCore.Mvc;
 namespace IndividualProject.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
-        private IndividualProjectContext _ipc = new();
+        private readonly IndividualProjectContext _ipc = new();
 
-        public UserController(ILogger<UserController> logger)
-        {
-            _logger = logger;
- 
-        }
 
         [HttpGet]
-        public IEnumerable<UserDto> GetUser(string username, string password)
+        public UserDto GetUser(string username, string password)
         {
-            var user = _ipc.Users.Where(u => u.Username == username && u.Password == password).Select(u => new UserDto
+            var retrievedUser = _ipc.Users.SingleOrDefault(u => u.Username == username && u.Password == password) 
+                ?? throw new Exception("The username or password is incorrect");
+
+            var user = new UserDto
             {
-                Username = u.Username,
-                Password = u.Password,
-                Forname = u.Forname,
-                Surname = u.Surname,
-                Email = u.Email,
-                PhoneNumber = u.PhoneNumber,
-            });
+                Username = retrievedUser.Username,
+                Password = retrievedUser.Password,
+                Forname = retrievedUser.Forname,
+                Surname = retrievedUser.Surname,
+                Email = retrievedUser.Email,
+                PhoneNumber = retrievedUser.PhoneNumber,
+            };
 
             return user;
+        }
+        
+        [HttpPost]
+        public void CreateUser(string username, string password, string forename, string surname, string email, string phoneNumber)
+        {
+            var newUser = new User
+            {
+                Username = username,
+                Password = password,
+                Forname = forename,
+                Surname = surname,
+                Email = email,
+                PhoneNumber = phoneNumber,
+            };
+
+            _ipc.Users.Add(newUser);
+
+            _ipc.SaveChangesAsync();
         }
     }
 }
