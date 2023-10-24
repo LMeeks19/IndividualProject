@@ -9,14 +9,6 @@ export function Login() {
   const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState)
   const [user, setUser] = useRecoilState(userState)
 
-  useEffect(() => {
-    
-  })
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   const submitLogin = async () => {
     var data = await GetData('user', loginInfo);
     setUser({data});
