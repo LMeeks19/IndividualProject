@@ -3,10 +3,9 @@ import React from 'react';
 export function Home() {
 
   return (
-    <div className='mt10'>
+    <div className='mt-[5rem]'>
     <div className='text-center'>
-        <h1>Home</h1>
-        <p>Grassroots Football App</p>
+        <div className='text-3xl font-bold'>Grassroots Football App</div>
     </div>
 </div>
   );

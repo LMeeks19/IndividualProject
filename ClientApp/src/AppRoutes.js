@@ -10,7 +10,7 @@ const AppRoutes = [
   },
   {
     path: '/login',
-    element: <Login />
+    element: <Login />,
   },
   {
     path: '/create-account',

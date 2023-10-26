@@ -20,7 +20,7 @@ namespace IndividualProject.Controllers
             {
                 Username = retrievedUser.Username,
                 Password = retrievedUser.Password,
-                Forname = retrievedUser.Forname,
+                Forename = retrievedUser.Forename,
                 Surname = retrievedUser.Surname,
                 Email = retrievedUser.Email,
                 PhoneNumber = retrievedUser.PhoneNumber,
@@ -36,7 +36,7 @@ namespace IndividualProject.Controllers
             {
                 Username = username,
                 Password = password,
-                Forname = forename,
+                Forename = forename,
                 Surname = surname,
                 Email = email,
                 PhoneNumber = phoneNumber,

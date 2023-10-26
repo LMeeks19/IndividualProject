@@ -5,7 +5,7 @@
 namespace IndividualProject.Migrations
 {
     /// <inheritdoc />
-    public partial class create_user_table : Migration
+    public partial class Create_User_Table : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace IndividualProject.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Forname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Forename = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(name: "Phone Number", type: "nvarchar(max)", nullable: false)

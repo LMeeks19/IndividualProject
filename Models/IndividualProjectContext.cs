@@ -29,7 +29,7 @@ public class IndividualProjectContext : DbContext
             entity.Property(e => e.Id).HasColumnName("Id");
             entity.Property(e => e.Username).HasColumnName("Username");
             entity.Property(e => e.Password).HasColumnName("Password");
-            entity.Property(e => e.Forname).HasColumnName("Forname");
+            entity.Property(e => e.Forename).HasColumnName("Forename");
             entity.Property(e => e.Surname).HasColumnName("Surname");
             entity.Property(e => e.Email).HasColumnName("Email");
             entity.Property(e => e.PhoneNumber).HasColumnName("Phone Number");

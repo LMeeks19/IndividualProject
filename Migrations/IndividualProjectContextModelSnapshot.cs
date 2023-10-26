@@ -35,10 +35,10 @@ namespace IndividualProject.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Email");
 
-                    b.Property<string>("Forname")
+                    b.Property<string>("Forename")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Forname");
+                        .HasColumnName("Forename");
 
                     b.Property<string>("Password")
                         .IsRequired()

@@ -1,41 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import { useRecoilValue } from 'recoil';
+import { isUserLoggedInState, userState } from '../state/GlobalState';
+import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
+import LockOpenSharpIcon from '@mui/icons-material/LockOpenSharp';
 
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+export function NavMenu() {
 
-  constructor (props) {
-    super(props);
+  const isUserLoggedIn = useRecoilValue(isUserLoggedInState);
+  const user = useRecoilValue(userState);
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true
-    };
+  const toggleNavbar = () => {
+    setIsNavbarOpen(!isNavbarOpen);
   }
 
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  }
-
-  render() {
-    return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
-          <NavbarBrand tag={Link} to="/">IndividualProject</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-            <ul className="navbar-nav flex-grow">
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
-              </NavItem>
-            </ul>
-          </Collapse>
-        </Navbar>
-      </header>
-    );
-  }
+  return (
+    <header>
+      <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-[3rem]" container light>
+        <NavbarBrand tag={Link} className='font-semibold' to="/">IndividualProject</NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+        <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={isNavbarOpen} navbar>
+          <ul className="navbar-nav flex-grow">
+            <NavItem className={`ml-auto ${isNavbarOpen ? '' : 'flex'}`}>
+              {!isUserLoggedIn ?
+                <NavLink tag={Link} className="text-dark font-semibold" to="/login">Login <LockOpenSharpIcon fontSize='small'  className='my-auto'/></NavLink>
+                :
+                <NavLink tag={Link} className='text-dark font-semibold' to={`/account/${user.username}`}>Account <AccountCircleSharpIcon fontSize='small' className='my-auto' /></NavLink>
+              }
+            </NavItem>
+          </ul>
+        </Collapse>
+      </Navbar>
+    </header>
+  );
 }

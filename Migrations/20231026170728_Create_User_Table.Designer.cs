@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IndividualProject.Migrations
 {
     [DbContext(typeof(IndividualProjectContext))]
-    [Migration("20231016124125_create_user_table")]
-    partial class create_user_table
+    [Migration("20231026170728_Create_User_Table")]
+    partial class Create_User_Table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,10 +38,10 @@ namespace IndividualProject.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Email");
 
-                    b.Property<string>("Forname")
+                    b.Property<string>("Forename")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Forname");
+                        .HasColumnName("Forename");
 
                     b.Property<string>("Password")
                         .IsRequired()

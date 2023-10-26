@@ -6,9 +6,9 @@ export function ForgottenPassword() {
 
 
     return (
-        <div className='mt10'>
+        <div className='mt-[5rem]'>
             <div className='text-center'>
-                <h1>Forgotten Password</h1>
+                <div className='text-3xl font-bold'>Forgotten Password</div>
             </div>
         </div>
     );

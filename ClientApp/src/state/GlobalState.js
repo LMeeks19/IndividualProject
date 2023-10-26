@@ -13,10 +13,15 @@ export const userState = atom({
     default: {
         username: "",
         password: "",
-        forname: "",
+        forename: "",
         surname: "",
         email: "",
         phoneNumber: "",
     }
+});
+
+export const isUserLoggedInState = atom ({
+    key: 'isUserLoggedInState',
+    default: false
 });
 

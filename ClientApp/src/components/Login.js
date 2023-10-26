@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { loginInfoState, userState } from '../state/GlobalState';
+import { loginInfoState, userState, isUserLoggedInState } from '../state/GlobalState';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { GetData } from '../server'
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ export function Login() {
 
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState);
+  const setIsUserLoggedIn = useSetRecoilState(isUserLoggedInState);
   const setUser = useSetRecoilState(userState);
 
   const submitLogin = async (event) => {
@@ -18,7 +19,8 @@ export function Login() {
 
     try {
       var data = await GetData('api/user', loginInfo);
-      setUser({ data });
+      setUser(data);
+      setIsUserLoggedIn(true);
       navigate("/");
     }
     catch {
@@ -28,25 +30,26 @@ export function Login() {
   }
 
   return (
-    <div className='mt10'>
+    <div className='mt-[5rem]'>
       <div className='text-center'>
-        <h1>Login</h1>
-        <p>Please sign in to your account or create a new account if you have not yet registered</p>
+        <div className='text-3xl font-bold'>Login</div>
+        <div>Please sign in to your account or create a new account if you have not yet registered</div>
       </div>
-      <div className='flex column'>
-        <div className='error-message text center red mb1' id='errorMessage' />
+      <div className='flex-col mt-[2rem]'>
+        <div className='error-message text center red mb-[1rem]' id='errorMessage' />
 
-        <form className='flex column' onSubmit={submitLogin}>
-          <h5>Username:</h5>
-          <input className='mb1' onChange={event => setLoginInfo({ ...loginInfo, username: event.target.value })} type='text' required></input>
+        <form className='flex flex-col justify-center' onSubmit={submitLogin}>
+          <div className='font-semibold'>Username:</div>
+          <input onChange={event => setLoginInfo({ ...loginInfo, username: event.target.value })} type='text' required />
 
-          <h5>Password:</h5>
-          <input className='mb1' onChange={event => setLoginInfo({ ...loginInfo, password: event.target.value })} type='password' required></input>
-          
+          <div className='font-semibold'>Password:</div>
+          <input onChange={event => setLoginInfo({ ...loginInfo, password: event.target.value })} type='password' required />
+
           <button className='btn-primary' type='submit'>Login</button>
         </form>
+
         <div className='navbar-nav'>
-          <div className='flex justifyevenly mt1'>
+          <div className='flex justify-evenly mt-[1rem]'>
             <NavItem>
               <NavLink tag={Link} to="/create-account">Create Account</NavLink>
             </NavItem>
