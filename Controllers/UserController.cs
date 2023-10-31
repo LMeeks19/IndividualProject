@@ -1,6 +1,7 @@
 ﻿using IndividualProject.Enums;
 using IndividualProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using CryptSharp;
 
 namespace IndividualProject.Controllers
 {
@@ -13,10 +14,12 @@ namespace IndividualProject.Controllers
         [HttpGet]
         public UserDto GetUser(string username, string password)
         {
-            var retrievedUser = _ipc.Users.SingleOrDefault(u => u.Username == username && u.Password == password) 
-                ?? throw new Exception("The username or password is incorrect");
+            var retrievedUser = _ipc.Users.SingleOrDefault(u => u.Username == username);
 
-            var user = new UserDto
+            if (retrievedUser == null || !Crypter.CheckPassword(password, retrievedUser.Password))
+                throw new Exception("The Username or Password is incorrect");
+
+            return new UserDto
             {
                 Username = retrievedUser.Username,
                 Password = retrievedUser.Password,
@@ -25,8 +28,6 @@ namespace IndividualProject.Controllers
                 Email = retrievedUser.Email,
                 PhoneNumber = retrievedUser.PhoneNumber,
             };
-
-            return user;
         }
         
         [HttpPost]
@@ -35,7 +36,7 @@ namespace IndividualProject.Controllers
             var newUser = new User
             {
                 Username = username,
-                Password = password,
+                Password = Crypter.MD5.Crypt(password),
                 Forename = forename,
                 Surname = surname,
                 Email = email,
@@ -50,12 +51,15 @@ namespace IndividualProject.Controllers
         [HttpPut]
         public void UpdateUser(string username, string updatedValue, UserValueType userValueType)
         {
-            var user = _ipc.Users.SingleOrDefault(u => u.Username == username) ?? throw new Exception("This user does not exist");
+            var user = _ipc.Users.SingleOrDefault(u => u.Username == username);
+
+            if (user == null)
+                throw new Exception("Cannot update user that does not exist");
 
             if (userValueType == UserValueType.Username)
                 user!.Username = updatedValue;
             else if (userValueType == UserValueType.Password)
-                user!.Password = updatedValue;
+                user!.Password = Crypter.MD5.Crypt(updatedValue);
             else if (userValueType == UserValueType.Forename)
                 user!.Forename = updatedValue;
             else if (userValueType == UserValueType.Surname)
@@ -71,11 +75,13 @@ namespace IndividualProject.Controllers
         [HttpDelete] 
         public void DeleteUser(string username)
         {
-            var user = _ipc.Users.SingleOrDefault(u => u.Username == username) ?? throw new Exception("This user does not exist");
+            var user = _ipc.Users.SingleOrDefault(u => u.Username == username);
+
+            if (user == null)
+                throw new Exception("Cannot delete user that does not exist");
 
             _ipc.Users.Remove(user);
             _ipc.SaveChangesAsync();
-           
         }
     }
 }

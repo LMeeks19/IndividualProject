@@ -20,8 +20,8 @@ export default function CreateAccount() {
 
         try {
             validate();
-            await PostData('api/user', newAccount);
-            navigate("/login");
+            await PostData('api/user', newAccount)
+                .then(navigate("/login"));
         }
         catch
         {

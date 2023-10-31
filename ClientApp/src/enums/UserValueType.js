@@ -1,8 +1,8 @@
 export const UserValueType = {
-    Username,
-    Password,
-    Forename,
-    Surname,
-    Email,
-    PhoneNumber
+    Username: 0,
+    Password: 1,
+    Forename: 2,
+    Surname: 3,
+    Email: 4,
+    PhoneNumber: 5
 }

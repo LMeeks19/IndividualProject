@@ -5,7 +5,10 @@ const request = async (url, params = {}, method = 'GET') => {
 
     url += '?' + (new URLSearchParams(params)).toString();
 
-    return fetch(url, options).then(response => response.json());
+    if (method == 'POST')
+        return fetch(url, options).then(response => response.json());
+
+    return fetch(url, options);
 };
 
 export const GetData = (url, params) => request(url, params, 'GET');
