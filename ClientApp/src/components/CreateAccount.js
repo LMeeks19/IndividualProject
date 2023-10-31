@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { PostData } from '../server'
 import { useNavigate } from 'react-router-dom';
 
-export function CreateAccount() {
+export default function CreateAccount() {
 
     const navigate = useNavigate();
 

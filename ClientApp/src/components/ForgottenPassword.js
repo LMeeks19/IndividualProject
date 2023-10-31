@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { PostData } from '../server'
+import React from 'react';
 
-export function ForgottenPassword() {
+export default function ForgottenPassword() {
 
 
 
@@ -11,6 +10,10 @@ export function ForgottenPassword() {
                 <div className='text-3xl font-bold'>Forgotten Password</div>
             </div>
         </div>
+
+        //TODO:
+        // IMPLEMENT UI FOR THIS
+        // GET BACKEND TO SEND EMAIL TO RESET PASSWORD
     );
 
 }

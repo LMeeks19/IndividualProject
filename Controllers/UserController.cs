@@ -1,4 +1,5 @@
-﻿using IndividualProject.Models;
+﻿using IndividualProject.Enums;
+using IndividualProject.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IndividualProject.Controllers
@@ -8,7 +9,6 @@ namespace IndividualProject.Controllers
     public class UserController : ControllerBase
     {
         private readonly IndividualProjectContext _ipc = new();
-
 
         [HttpGet]
         public UserDto GetUser(string username, string password)
@@ -45,6 +45,37 @@ namespace IndividualProject.Controllers
             _ipc.Users.Add(newUser);
 
             _ipc.SaveChangesAsync();
+        }
+
+        [HttpPut]
+        public void UpdateUser(string username, string updatedValue, UserValueType userValueType)
+        {
+            var user = _ipc.Users.SingleOrDefault(u => u.Username == username) ?? throw new Exception("This user does not exist");
+
+            if (userValueType == UserValueType.Username)
+                user!.Username = updatedValue;
+            else if (userValueType == UserValueType.Password)
+                user!.Password = updatedValue;
+            else if (userValueType == UserValueType.Forename)
+                user!.Forename = updatedValue;
+            else if (userValueType == UserValueType.Surname)
+                user!.Surname = updatedValue;
+            else if (userValueType == UserValueType.Email)
+                user!.Email = updatedValue;
+            else if (userValueType == UserValueType.PhoneNumber)
+                user!.PhoneNumber = updatedValue;
+
+            _ipc.SaveChangesAsync();
+        }
+
+        [HttpDelete] 
+        public void DeleteUser(string username)
+        {
+            var user = _ipc.Users.SingleOrDefault(u => u.Username == username) ?? throw new Exception("This user does not exist");
+
+            _ipc.Users.Remove(user);
+            _ipc.SaveChangesAsync();
+           
         }
     }
 }
