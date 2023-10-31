@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import { Layout } from './components/Layout';
+import AppRoutes from '../Routing/AppRoutes';
+import { Layout } from '../Components/Layout';
 import './custom.css';
 import { RecoilRoot } from 'recoil';
 

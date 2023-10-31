@@ -14,8 +14,14 @@ code {
   color: #fff;
   padding: 0.5rem;
   font-size: large;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+
+  &.blue {
+    background-color: #1b6ec2;
+  }
+
+  &.red {
+    background-color: red;
+  }
 }
 
 .error-message {

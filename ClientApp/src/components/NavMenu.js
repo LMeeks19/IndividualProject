@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
-import { useRecoilValue } from 'recoil';
-import { isUserLoggedInState, userState } from '../state/GlobalState';
+import { useRecoilState } from 'recoil';
+import { isUserLoggedInState, userState } from '../State/GlobalState';
 import LockOpenSharpIcon from '@mui/icons-material/LockOpenSharp';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -14,20 +14,46 @@ import IconButton from '@mui/material/IconButton';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
-import { LogUserOut } from '../global functions/global_functions';
-import { StringAvatar } from '../global functions/global_functions';
 
 export function NavMenu() {
 
-  const isUserLoggedIn = useRecoilValue(isUserLoggedInState);
-  const user = useRecoilValue(userState);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useRecoilState(isUserLoggedInState);
+  const [user, setUser] = useRecoilState(userState);
   const [anchorEl, setAnchorEl] = useState();
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-  const logUserOut = LogUserOut();
-  const stringAvatar = () => { 
-    return StringAvatar(`${user.forename} ${user.surname}`) 
-  };
+
+  const logUserOut = () => {
+    setUser(null);
+    setIsUserLoggedIn(false);
+    navigate('/');
+  }
+
+  function stringToColor(string) {
+    let hash = 0;
+    let i;
+
+    for (i = 0; i < string.length; i += 1) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    let color = '#';
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff;
+      color += `00${value.toString(16)}`.slice(-2);
+    }
+
+    return color;
+  }
+
+  function stringAvatar(name) {
+    return {
+      sx: {
+        bgcolor: stringToColor(name),
+      },
+      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+  }
 
   const goToSettings = () => {
     setAnchorEl(null);
@@ -60,7 +86,7 @@ export function NavMenu() {
                 onClick={handleClick}
                 size='small'
               >
-                <Avatar {...stringAvatar} />
+                <Avatar {...stringAvatar(`${user.forename} ${user.surname}`)} />
               </IconButton>
             }
           </NavItem>

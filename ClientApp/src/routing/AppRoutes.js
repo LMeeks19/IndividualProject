@@ -1,9 +1,9 @@
-import Login  from "./components/Login";
-import Home from "./components/Home";
-import CreateAccount from "./components/CreateAccount";
-import ForgottenPassword from "./components/ForgottenPassword";
-import Settings from "./components/Settings";
-import MyAccount from "./components/MyAccount";
+import Login  from "../Pages/Login";
+import Home from "../Pages/Home";
+import CreateAccount from "../Pages/CreateAccount";
+import ForgottenPassword from "../Pages/ForgottenPassword";
+import Settings from "../Pages/Settings";
+import MyAccount from "../Pages/MyAccount";
 
 const AppRoutes = [
   {

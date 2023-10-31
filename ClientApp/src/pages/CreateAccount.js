@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PostData } from '../server'
+import { PostData } from '../Server/requests'
 import { useNavigate } from 'react-router-dom';
 
 export default function CreateAccount() {

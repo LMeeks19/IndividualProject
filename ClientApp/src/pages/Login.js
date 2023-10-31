@@ -1,9 +1,9 @@
 import React from 'react'
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { loginInfoState, userState, isUserLoggedInState } from '../state/GlobalState';
+import { loginInfoState, userState, isUserLoggedInState } from '../State/GlobalState';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { GetData } from '../server'
+import { GetData } from '../Server/requests'
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -45,7 +45,7 @@ export default function Login() {
           <div className='font-semibold'>Password:</div>
           <input onChange={event => setLoginInfo({ ...loginInfo, password: event.target.value })} type='password' required />
 
-          <button className='btn-primary' type='submit'>Login</button>
+          <button className='btn-primary blue' type='submit'>Login</button>
         </form>
 
         <div className='navbar-nav'>
